@@ -33,13 +33,15 @@
 
 .item__move {
   display: grid;
+  grid-template-rows: 1fr 1fr;
 }
 
 .item__move button {
+  width: 100%;
   padding: 0%;
 }
 
-.item__done {}
+.item__done input {}
 
 .item__title {}
 

@@ -25,7 +25,7 @@ function App(): React.ReactElement {
     return true;
   }
 
-  function changeItem(index: number, item: Item): void {
+  function editItem(index: number, item: Item): void {
     if (!isItemAndIndexValid(index, item))
       return;
 
@@ -34,7 +34,7 @@ function App(): React.ReactElement {
     if (index === items.length - 1) {
       newItems = items.concat(new Item());
     } else {
-      items.findIndex((iterItem, iterIndex) => iterIndex > index && iterItem.title.length === 0)
+      // items.findIndex((iterItem, iterIndex) => iterIndex > index && iterItem.title.length === 0)
       newItems = [...items];
     }
 
@@ -58,7 +58,7 @@ function App(): React.ReactElement {
     if (!isItemAndIndexValid(index) || !isItemAndIndexValid(switchIndex))
       return;
 
-    let newItems = [...items];
+    const newItems = [...items];
     [newItems[index], newItems[switchIndex]] = [newItems[switchIndex], newItems[index]];
 
     setItems(newItems);
@@ -74,22 +74,23 @@ function App(): React.ReactElement {
             <div className='item__move'>
               { index !== items.length - 1 &&
                 <>
-                  <button onClick={() => moveItem(index, "up")}>↑</button>
-                  <button onClick={() => moveItem(index, "down")}>↓</button>
+                  <div>{ index !== 0 && <button onClick={() => moveItem(index, "up")}>↑</button> }</div>
+                  <div>{ index !== items.length - 2 &&<button onClick={() => moveItem(index, "down")}>↓</button> }</div>
                 </>
               }
             </div>
 
             <div className='item__done'>
-              <input type='checkbox' checked={item.done} onChange={(event) => changeItem(index, {...item, done: event.target.checked})} onBlur={(event) => console.log(event)} />
+              <input type='checkbox' checked={item.done} onChange={(event) => editItem(index, {...item, done: event.target.checked})} onBlur={(event) => console.log(event)} />
             </div>
             
             <div className='item__title'>
-              <input value={item.title} onChange={(event) => changeItem(index, {...item, title: event.target.value })} />
+              <input value={item.title} onChange={(event) => editItem(index, {...item, title: event.target.value })} />
             </div>
             
             <div className='item__description'>
-              <input value={item.description} onChange={(event) => changeItem(index, {...item, description: event.target.value })} />
+              Description
+              {/* <input value={item.description} onChange={(event) => editItem(index, {...item, description: event.target.value })} /> */}
             </div>
 
             <div>
