@@ -21,8 +21,22 @@
 }
 
 .item {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr 6fr 6fr 3fr;
   border-style: solid;
+  padding: 0.5rem;
+}
+
+.item input {
+  font-size: 1.5rem;
+}
+
+.item__move {
+  display: grid;
+}
+
+.item__move button {
+  padding: 0%;
 }
 
 .item__done {}

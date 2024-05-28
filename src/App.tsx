@@ -6,17 +6,35 @@ import { Item } from './models/item'
 
 function App(): React.ReactElement {
   const [items, setItems] = useState([
-    new Item("Essen", "Brötchen"),
     new Item("Schlafen"),
+    new Item("Essen", "Brötchen"),
     new Item(),
   ] as Item[]);
 
+  function isItemAndIndexValid(index: number, item?: Item): boolean {
+    if (index < 0)
+      return false;
+    if (item != null && (item.title.length !== 0 || item.description.length !== 0)) {
+      if (index >= items.length)
+        return false;
+    } else {
+      if (index >= items.length - 1)
+        return false;
+    }
+
+    return true;
+  }
+
   function changeItem(index: number, item: Item): void {
+    if (!isItemAndIndexValid(index, item))
+      return;
+
     let newItems: Item[];
 
-    if (index + 1 === items.length) {
+    if (index === items.length - 1) {
       newItems = items.concat(new Item());
     } else {
+      items.findIndex((iterItem, iterIndex) => iterIndex > index && iterItem.title.length === 0)
       newItems = [...items];
     }
 
@@ -26,16 +44,42 @@ function App(): React.ReactElement {
   }
 
   function deleteItem(index: number): void {
+    if (!isItemAndIndexValid(index))
+      return;
+
     const newItems = items.filter((_, i) => i !== index);
+    
+    setItems(newItems);
+  }
+
+  function moveItem(index: number, direction: "up" | "down"): void {
+    const switchIndex = direction === "up" ? index - 1 : index + 1;
+
+    if (!isItemAndIndexValid(index) || !isItemAndIndexValid(switchIndex))
+      return;
+
+    let newItems = [...items];
+    [newItems[index], newItems[switchIndex]] = [newItems[switchIndex], newItems[index]];
+
     setItems(newItems);
   }
 
   return (
     <>
       <h1>zu tun</h1>
+      
       <div>
         {items.map((item, index) => (
           <div className='item'>
+            <div className='item__move'>
+              { index !== items.length - 1 &&
+                <>
+                  <button onClick={() => moveItem(index, "up")}>↑</button>
+                  <button onClick={() => moveItem(index, "down")}>↓</button>
+                </>
+              }
+            </div>
+
             <div className='item__done'>
               <input type='checkbox' checked={item.done} onChange={(event) => changeItem(index, {...item, done: event.target.checked})} onBlur={(event) => console.log(event)} />
             </div>
@@ -49,7 +93,9 @@ function App(): React.ReactElement {
             </div>
 
             <div>
-              <button onClick={() => deleteItem(index)}>Löschen</button>
+              { index !== items.length - 1 &&
+                <button onClick={() => deleteItem(index)}>Löschen</button>
+              }
             </div>
           </div>
         ))}
