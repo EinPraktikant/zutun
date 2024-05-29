@@ -1,0 +1,6 @@
+.details {}
+
+.details__description input {
+    font-size: 1.5rem;
+    width: 80%;
+}
