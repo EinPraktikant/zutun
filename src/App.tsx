@@ -4,7 +4,7 @@ import { useState } from 'react'
 import './App.css'
 import { Item } from './models/item'
 
-function App(): React.ReactElement {
+function AppPage(): React.ReactElement {
   const [items, setItems] = useState([
     new Item("Schlafen"),
     new Item("Essen", "Brötchen"),
@@ -105,4 +105,4 @@ function App(): React.ReactElement {
   )
 }
 
-export default App;
+export default AppPage;
