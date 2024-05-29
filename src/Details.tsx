@@ -1,4 +1,4 @@
-import { useLoaderData, Params, useOutletContext, /* ActionFunctionArgs, ParamParseKey, LoaderFunction */ } from "react-router-dom";
+import { useLoaderData, Params, useOutletContext } from "react-router-dom";
 import { Item } from "./models/item";
 import { editItem } from "./App";
 import './Details.css'
@@ -13,8 +13,8 @@ export function DetailsPage(): React.ReactElement {
 
     const data = useLoaderData() as { id: string };
 
-    const itemIndex = items.findIndex((x) => x.id === data?.id);
-    const item = items[itemIndex];
+    const index = items.findIndex((x) => x.id === data?.id);
+    const item = items[index];
 
     if (item !== undefined) {
         return (
@@ -24,7 +24,7 @@ export function DetailsPage(): React.ReactElement {
                 </div>
 
                 <div className="details__description">
-                    <input value={item.description} onChange={(event) => editItem(items, setItems, itemIndex, {...item, description: event.target.value })} />
+                    <input value={item.description} onChange={(event) => editItem(items, setItems, index, {...item, description: event.target.value })} />
                 </div>
             </>
         );

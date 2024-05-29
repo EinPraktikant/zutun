@@ -14,6 +14,10 @@ export default function ErrorPage() {
             </div>
         );
     } else {
-        // TODO: kein Fehler
+        return (
+            <div>
+                Kein Fehler.
+            </div>
+        )
     }
 }

@@ -1,6 +1,4 @@
 import { useState } from 'react'
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
 import './App.css'
 import { Item } from './models/item'
 import { Outlet, Link } from 'react-router-dom';
@@ -28,7 +26,6 @@ export function editItem(items: Item[], setItems: React.Dispatch<React.SetStateA
   if (index === items.length - 1) {
     newItems = items.concat(new Item());
   } else {
-    // items.findIndex((iterItem, iterIndex) => iterIndex > index && iterItem.title.length === 0)
     newItems = [...items];
   }
 
