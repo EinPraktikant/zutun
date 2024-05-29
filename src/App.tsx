@@ -74,7 +74,7 @@ function AppPage(): React.ReactElement {
                 { index !== items.length - 1 &&
                   <>
                     <div>{ index !== 0 && <button onClick={() => moveItem(index, "up")}>↑</button> }</div>
-                    <div>{ index !== items.length - 2 &&<button onClick={() => moveItem(index, "down")}>↓</button> }</div>
+                    <div>{ index !== items.length - 2 && <button onClick={() => moveItem(index, "down")}>↓</button> }</div>
                   </>
                 }
               </div>
